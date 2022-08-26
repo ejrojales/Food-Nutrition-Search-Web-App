@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<button type="button" onclick="myFunction()">Change Portion Size</button>
+<button type="button" id="addFood" onclick="addFood()" ;>Add food</button>
+
+<table class="table content-section">
+    <caption>Data retrieved from the USDA FoodData Central API.</caption>
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Serving Size</th>
+            <th scope="col">Calories (KCAL)</th>
+            <th scope="col">Protein</th>
+            <th scope="col">Total Fat</th>
+            <th scope="col">Carbohydrates</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% if data["description"] %}
+            <td id="foodName">{{ data["description"] }}</td>
+            {% endif %}
+
+            {% if data["description"] %}
+            <td id="servingSize">100 grams</td>
+            {% endif %}
+
+
+            {% for nutrient in data['foodNutrients'] %}
+
+            {% if nutrient['nutrient']['unitName'] == 'kcal' %}
+            <td id="Cal">{{ nutrient['amount'] }}</td>
+            {% endif %}
+
+            {% if nutrient['nutrient']['name'] == 'Protein' %}
+            <td id="Pro">{{ nutrient['amount'] }}</td>
+            {% endif %}
+
+            {% if nutrient['nutrient']['name'] == 'Total lipid (fat)' %}
+            <td id="Fat">{{ nutrient['amount'] }}</td>
+            {% endif %}
+
+            {% if nutrient['nutrient']['name'] == 'Carbohydrate, by difference' %}
+            <td id="Carbs">{{ nutrient['amount'] }}</td>
+            {% endif %}
+
+            {% endfor %}
+
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">let myObject = {{ portion_size | tojson}};</script>
+<script type="text/javascript">let added_foods = {{ user_foods | tojson}};</script>
+<script type="text/javascript" src="{{ url_for('static', filename='myscripts.js') }}"></script>
+{% endblock content %}

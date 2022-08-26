@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">FDCID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Brand</th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for info in data["foods"] %}
+          <tr>
+
+              {% if info["fdcId"] %}
+                  <td><a href="{{ url_for('nutrients', fdcID=info['fdcId']) }}">
+                      {{info["fdcId"]}}
+                  </a></td>
+              {% endif %}
+
+              {% if info["description"] %}
+                  <td>{{info["description"]}}</td>
+              {% endif %}
+
+              {% if info["brandName"] %}
+                <td>{{info["brandName"]}}</td>
+              {% else %}
+                <td>&nbsp;</td>
+              {% endif %}
+
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+<script type="text/javascript">let added_foods = {{user_foods | tojson}};</script>
+{% endblock %}
