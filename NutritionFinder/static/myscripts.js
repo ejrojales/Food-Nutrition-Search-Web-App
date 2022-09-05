@@ -85,7 +85,6 @@ function addFood() {
     tableBody.appendChild(rowElement);
 
     let subtotal = document.getElementsByClassName("subtotal");
-    subtotal.style.display = "block";
 
 
 

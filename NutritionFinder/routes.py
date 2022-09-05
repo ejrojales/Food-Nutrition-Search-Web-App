@@ -57,6 +57,7 @@ def ProcessUserInfo(user_info):
     userinfo = json.loads(user_info)
     foods = userinfo
     user_foods.append(foods)
+    print(user_foods)
     return('/')
 
 
